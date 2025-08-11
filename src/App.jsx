@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
-import Main from './components/Main/Main';
 import Footer from './components/Footer';
+import Main from './components/Main/Main';
 
 
 
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Main/>
+      <Main />
       <Footer/>
     </>
   )
