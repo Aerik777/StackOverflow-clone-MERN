@@ -1,40 +1,44 @@
-const mockQuestions = 
-[
+const mockQuestions = [
   {
-    "id": 1,
-    "question": "What is the capital of France?",
-    "creator": "John Doe",
-    "createdDate": "2023-05-10T09:15:00",
-    "tags": ["geography", "trivia"]
+    id: 1,
+    question: "What is a closure in JavaScript?",
+    creator: "Alice Johnson",
+    createdDate: "2023-10-01T09:00:00",
+    tags: ["javascript", "functions", "closures"],
+    body: "## JavaScript Closures\n\nA **closure** is a function that has access to its own scope, the outer function's scope, and the global scope.\n\n```javascript\nfunction outer() {\n  let count = 0;\n  return function inner() {\n    count++;\n    return count;\n  };\n}\nconst counter = outer();\nconsole.log(counter()); // 1\nconsole.log(counter()); // 2\n```\n\nClosures are commonly used for data privacy and function factories.",
   },
   {
-    "id": 2,
-    "question": "How does photosynthesis work?",
-    "creator": "Jane Smith",
-    "createdDate": "2023-06-22T14:30:00",
-    "tags": ["biology", "science"]
+    id: 2,
+    question: "How does the virtual DOM work in React?",
+    creator: "Bob Lee",
+    createdDate: "2023-10-02T11:30:00",
+    tags: ["react", "javascript", "virtual-dom"],
+    body: "## React Virtual DOM\n\nThe **virtual DOM** is a lightweight JavaScript representation of the real DOM. React uses it to optimize UI updates:\n\n1. When state changes, React creates a new virtual DOM tree.\n2. It compares the new tree with the previous one (diffing).\n3. Only the changed elements are updated in the real DOM (reconciliation).\n\nThis process improves performance and efficiency.",
   },
   {
-    "id": 3,
-    "question": "What are the best programming languages?",
-    "creator": "Alex Brown",
-    "createdDate": "2023-07-05T11:45:00",
-    "tags": ["programming", "tech"]
+    id: 3,
+    question: "What is the difference between == and === in JavaScript?",
+    creator: "Charlie Kim",
+    createdDate: "2023-10-03T14:15:00",
+    tags: ["javascript", "operators", "basics"],
+    body: "## == vs === in JavaScript\n\n- `==` checks for value equality after type coercion.\n- `===` checks for both value and type equality (strict equality).\n\n```javascript\nconsole.log(2 == '2'); // true\nconsole.log(2 === '2'); // false\n```\n\nPrefer `===` to avoid unexpected type conversions.",
   },
   {
-    "id": 4,
-    "question": "Why is the sky blue?",
-    "creator": "Emily Davis",
-    "createdDate": "2023-08-12T16:20:00",
-    "tags": ["physics", "nature"]
+    id: 4,
+    question: "How do you manage state in a React application?",
+    creator: "Dana White",
+    createdDate: "2023-10-04T16:40:00",
+    tags: ["react", "state", "hooks"],
+    body: "## State Management in React\n\nCommon ways to manage state in React:\n\n- **useState** for local component state\n- **useContext** for global state\n- **Redux** or **MobX** for complex state management\n\nExample using `useState`:\n\n```javascript\nconst [count, setCount] = useState(0);\n```\n\nChoose the method based on your app's complexity.",
   },
   {
-    "id": 5,
-    "question": "How to learn machine learning effectively?",
-    "creator": "Mike Wilson",
-    "createdDate": "2023-09-18T10:10:00",
-    "tags": ["AI", "programming", "education"]
-  }
+    id: 5,
+    question: "What is event delegation in JavaScript?",
+    creator: "Evan Green",
+    createdDate: "2023-10-05T18:05:00",
+    tags: ["javascript", "events", "dom"],
+    body: "## Event Delegation\n\n**Event delegation** is a technique where a single event handler is added to a parent element to manage events for multiple child elements.\n\n```javascript\ndocument.getElementById('list').addEventListener('click', function(e) {\n  if (e.target && e.target.nodeName === 'LI') {\n    console.log('List item clicked:', e.target.textContent);\n  }\n});\n```\n\nThis improves performance and simplifies code.",
+  },
 ];
 
 export default mockQuestions;
