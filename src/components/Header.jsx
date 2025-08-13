@@ -1,33 +1,28 @@
 import React, { use, useEffect, useState } from 'react';
-import Button from '../common/Button';
-
-
+import { useAuth } from '../context/AuthContext';
 
 
 const Header = () => {
-  // State to manage the button status
-  const [status, setStatus] = useState(true);
+
+  const { isLoggedIn, login, logout } = useAuth();
+ 
 
   useEffect(() => {
     // This effect runs once when the component mounts 
     console.log("Header component mounted");
   }, []);
 
-  // Function to toggle the button status
-  const toggleStatus = () => {
-    setStatus(!status);
-  };
-
 
 
   return (
     <header className="flex items-center justify-between px-4 py-3 bg-white shadow-sm border-b border-gray-200">
-      <div className="flex items-center space-x-4">
-        <img 
+      <div className="flex items-center space-x-4 hover:cursor-pointer hover:bg-gray-300 rounded-lg">
+        <a href="/"><img 
           src="https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-logo.svg?v=ac8d4b7f3c0e" 
           alt="StackOverflow Logo" 
-          className="h-9"
+          className="h-11"
         />
+        </a>
       </div>
       
       <div className="flex-1 max-w-2xl mx-4">
@@ -38,9 +33,9 @@ const Header = () => {
         />
       </div>
 
-      <Button  onClick={toggleStatus}>
-        {status? 'logout' : 'login'}
-      </Button>
+      <button  onClick={isLoggedIn ? logout : login} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+        {isLoggedIn ? 'Logout' : 'Login'}
+      </button>
     </header>
     
   );
