@@ -4,12 +4,13 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Main from './components/Main/Main';
 import Question from './components/Main/Question';
+import { AuthProvider } from './context/AuthContext';
 
 
 
 const App = () => {
   return (
-    <>
+    <AuthProvider>
       <Header />
       <BrowserRouter> <Routes>
          <Route path="/" element={<Main />} />
@@ -18,7 +19,7 @@ const App = () => {
          </Routes>
       </BrowserRouter>
       <Footer/>
-    </>
+    </AuthProvider>
   )
 }
 
