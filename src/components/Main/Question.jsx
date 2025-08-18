@@ -6,6 +6,15 @@ import Markdown from "react-markdown";
 import VoteButton from "../../common/VoteButton";
 import Answer from "./Answer";
 import { useAuth } from "../../context/AuthContext";
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
+
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
+hljs.registerLanguage('python', require('highlight.js/lib/languages/python'));
+hljs.registerLanguage('css', require('highlight.js/lib/languages/css'));
+hljs.registerLanguage('html', require('highlight.js/lib/languages/xml'));
 
 export default function Question() {
   const { id } = useParams();
@@ -13,6 +22,25 @@ export default function Question() {
   const [answers, setAnswers] = useState([]);
   const [count, setCount] = useState(0);
   const { isLoggedIn } = useAuth();
+  const [value, setValue] = useState('');
+
+const modules = {
+  toolbar: [
+    [{ 'header': [1, 2, false] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    ['link', 'image', 'code-block'], // Make sure code-block is included
+    ['clean']
+  ],
+  syntax: {
+    highlight: text => hljs.highlightAuto(text).value,
+  }
+};
+
+const formats = [
+  'header', 'bold', 'italic', 'underline', 'strike', 'blockquote',
+  'list', 'bullet', 'link', 'image', 'code-block'
+];
 
   const handleOnClick = () => {
     setCount(count + 1);
@@ -27,7 +55,7 @@ export default function Question() {
     const form = e.target;
     const newAnswer = {
       id: answers.length + 1,
-      body: form.answer.value, 
+      body: value, 
       author: form.author.value || "Anonymous",
       createdAt: new Date().toISOString()
     }
@@ -110,16 +138,14 @@ export default function Question() {
             <div>
             <h2 className="text-2xl font-semibold mt-6 mb-4">Add an Answer</h2>
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-              <textarea
-                className="w-full p-3 border border-gray-300 rounded text-base focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
-                name="answer"
-                placeholder="Write your answer here..."
-                rows="4"
-              ></textarea>
+              
+              <ReactQuill theme="snow" value={value} onChange={setValue} />
               <input
                 type="text"
                 placeholder="Author"
                 name="author"
+                modules={modules}
+                formats={formats}
                 className="w-full p-3 border border-gray-300 rounded text-base focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
               />
               <button
