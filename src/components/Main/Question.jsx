@@ -5,12 +5,42 @@ import mockAnswers from "../../data/mockAnswer";
 import Markdown from "react-markdown";
 import VoteButton from "../../common/VoteButton";
 import Answer from "./Answer";
+import { useAuth } from "../../context/AuthContext";
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
+
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
+hljs.registerLanguage('python', require('highlight.js/lib/languages/python'));
+hljs.registerLanguage('css', require('highlight.js/lib/languages/css'));
+hljs.registerLanguage('html', require('highlight.js/lib/languages/xml'));
 
 export default function Question() {
   const { id } = useParams();
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [count, setCount] = useState(0);
+  const { isLoggedIn } = useAuth();
+  const [value, setValue] = useState('');
+
+const modules = {
+  toolbar: [
+    [{ 'header': [1, 2, false] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    ['link', 'image', 'code-block'], // Make sure code-block is included
+    ['clean']
+  ],
+  syntax: {
+    highlight: text => hljs.highlightAuto(text).value,
+  }
+};
+
+const formats = [
+  'header', 'bold', 'italic', 'underline', 'strike', 'blockquote',
+  'list', 'bullet', 'link', 'image', 'code-block'
+];
 
   const handleOnClick = () => {
     setCount(count + 1);
@@ -20,6 +50,18 @@ export default function Question() {
     setCount(count - 1);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const newAnswer = {
+      id: answers.length + 1,
+      body: value, 
+      author: form.author.value || "Anonymous",
+      createdAt: new Date().toISOString()
+    }
+    setAnswers([...answers, newAnswer]);
+    form.reset();
+  };
   // Fetch the question based on the ID from the URL
 
   useEffect(() => {
@@ -92,6 +134,30 @@ export default function Question() {
               <div className="text-gray-500">No answers yet.</div>
             )
           }
+          {isLoggedIn && (
+            <div>
+            <h2 className="text-2xl font-semibold mt-6 mb-4">Add an Answer</h2>
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+              
+              <ReactQuill theme="snow" value={value} onChange={setValue} />
+              <input
+                type="text"
+                placeholder="Author"
+                name="author"
+                modules={modules}
+                formats={formats}
+                className="w-full p-3 border border-gray-300 rounded text-base focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+              />
+              <button
+                type="submit"
+                className="p-3 bg-blue-600 text-white rounded font-bold hover:bg-blue-700 transition-colors"
+              >
+                Submit Answer
+              </button>
+            </form>
+          </div>
+          )}
+
         </div>
       )}
     </>
