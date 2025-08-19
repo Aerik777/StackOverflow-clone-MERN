@@ -69,6 +69,7 @@ export default function Question() {
       createdAt: new Date().toISOString(),
     };
     setAnswers([...answers, newAnswer]);
+    setValue('');
     form.reset();
   };
 
