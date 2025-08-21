@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import mockQuestions from "../../data/mockQuestions";
@@ -49,9 +49,6 @@ export default function Main() {
     form.reset();
   };
 
-  const spawnForm = () => {
-    <Form onclick={handleSubmit} />;
-  };
 
   return (
     <>

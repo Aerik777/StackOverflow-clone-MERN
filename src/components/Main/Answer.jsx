@@ -1,5 +1,4 @@
 import VoteButton from "../../common/VoteButton";
-import Markdown from "react-markdown";
 import ReactQuill from 'react-quill-new';
 
 export default function Answer({
@@ -11,13 +10,7 @@ export default function Answer({
   count,
   comments = [],
 }) {
-  const formattedAnswer = answer.replace(/\\n/g, "\n");
-  const htmlToText = (html) => {
-    return html
-      .replace(/<[^>]+>/g, "")
-      .replace(/&nbsp;/g, " ")
-      .trim();
-  };
+  
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6 mb-4 flex flex-col gap-3">
       <div className="flex items-start gap-4">
@@ -33,7 +26,7 @@ export default function Answer({
             <ReactQuill
               value={answer}
               readOnly={true}
-              theme={"bubble"} // Minimal toolbar
+              theme={"snow"} // Minimal toolbar
               modules={{ toolbar: false }}
             />
           </div>
