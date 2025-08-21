@@ -12,7 +12,7 @@ export default function Login() {
                             type="email"
                             id="email"
                             name="email"
-                            placeholder="yourexample@email.com"
+                            placeholder="youremail@email.com"
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
