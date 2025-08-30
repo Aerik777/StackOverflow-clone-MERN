@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Login from "./Login";
-import Register from "./Register";
 import mockQuestions from "../../data/mockQuestions";
 import Card from "../../common/Card";
 import { useAuth } from "../../context/AuthContext";

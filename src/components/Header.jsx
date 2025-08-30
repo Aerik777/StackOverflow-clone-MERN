@@ -1,10 +1,13 @@
 import React, {  useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+
 
 
 const Header = () => {
 
   const { isLoggedIn, login, logout } = useAuth();
+  const navigate = useNavigate();
  
 
   useEffect(() => {
@@ -33,8 +36,8 @@ const Header = () => {
         />
       </div>
 
-      <button  onClick={isLoggedIn ? logout : login} className="bg-blue-500 text-white px-4 py-2 rounded-md">
-        {isLoggedIn ? 'Logout' : 'Login'}
+      <button  onClick={isLoggedIn ? logout : null} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+        {isLoggedIn ? 'Logout' : <Link to={'/login'}>login</Link>}
       </button>
     </header>
     
