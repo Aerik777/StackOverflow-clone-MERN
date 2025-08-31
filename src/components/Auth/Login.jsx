@@ -6,38 +6,33 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-
-    const form = e.target;
-    const loginData = {
-      email: form.email.value,
-      password: form.password.value,
-    };
-    console.log(loginData);
-    
-
-    try {
-      const response = await fetch('http://localhost:8000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // important!
-        },
-        body: JSON.stringify(loginData),
-        credentials: 'include', // if using cookies/jwt
-      });
-
-      if (response.ok) {
-        login(); // update auth context
-        form.reset();
-        navigate('/'); // redirect to home
-      } else {
-        const err = await response.json();
-        console.log('Login failed:', err.message || err);
-      }
-    } catch (error) {
-      console.error('Error Login', error);
-    }
+  e.preventDefault();
+  const form = e.target;
+  const loginData = {
+    email: form.email.value,
+    password: form.password.value,
   };
+
+  try {
+    const res = await fetch('http://localhost:8000/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loginData),
+      credentials: 'include', // important to receive cookie
+    });
+
+    if (res.ok) {
+      login();          // update context
+      form.reset();
+      navigate('/');    // redirect
+    } else {
+      const err = await res.json();
+      console.log('Login failed:', err.message);
+    }
+  } catch (err) {
+    console.error('Login error:', err);
+  }
+};
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50'>
